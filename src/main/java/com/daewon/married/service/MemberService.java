@@ -10,7 +10,7 @@ public interface MemberService {
     Long register(MemberDTO memberDTO);
 
 
-    default Member dtoToEntity(MemberDTO memberDTO){
+    default Member dtoToEntity(MemberDTO memberDTO){//수정할거 수정
         Member entity = Member.builder()
                 .mno(memberDTO.getMno())
                 //.empId() 자동생성

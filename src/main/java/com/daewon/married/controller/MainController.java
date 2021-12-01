@@ -1,12 +1,18 @@
 package com.daewon.married.controller;
 
-import org.springframework.stereotype.Controller;
+import com.daewon.married.dto.MemberDTO;
+import com.daewon.married.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
 public class MainController {
+
+    private final MemberService memberService;
 
     @GetMapping("/")
     public String index() {
@@ -19,8 +25,7 @@ public class MainController {
     }
 
     @PostMapping("/register")
-    public String register(){
-        System.out.println("success");
-        return "redirect::/";
+    public Long register(@RequestBody MemberDTO memberDTO){
+        return memberService.register(memberDTO);
     }
 }

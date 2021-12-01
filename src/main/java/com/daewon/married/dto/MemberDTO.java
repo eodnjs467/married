@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MemberDTO {
+public class MemberDTO {//builder 정리 data 정리 , dto 필요한거 필요없는거 정리
 
     private Long mno;
 
