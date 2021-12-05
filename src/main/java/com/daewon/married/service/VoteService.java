@@ -9,9 +9,6 @@ public interface VoteService {
 
     void voteRecord(VoteDTO voteDTO);
 
-    String match(String empId);
+    List<String> selectMatchingResultByEmpId(String empId);
 
-    String[] selectMatchResult(String matchYnList);
-
-    List<Vote> selectVoteResult(String empId);
 }

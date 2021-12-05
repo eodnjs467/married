@@ -2,9 +2,7 @@ package com.daewon.married.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,6 +15,11 @@ public class Member {
 
     @Id @GeneratedValue
     private Long mno;
+
+    @Column(unique = true)
+    private String email;
+
+    private String password;
 
     private String empId;
 

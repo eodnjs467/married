@@ -1,6 +1,7 @@
 package com.daewon.married.controller;
 
 import com.daewon.married.dto.MemberDTO;
+import com.daewon.married.dto.VoteDTO;
 import com.daewon.married.service.MemberService;
 import com.daewon.married.service.VoteService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,14 +29,34 @@ public class MainController {
         return "registerForm";
     }
 
+    /**
+     * 회원 가입
+     * @param memberDTO
+     * @return
+     */
     @PostMapping("/register")
-    public Long register(@RequestBody MemberDTO memberDTO){
+    public Long register(@RequestBody MemberDTO memberDTO) {
         return memberService.register(memberDTO);
     }
 
+    /**
+     * 매칭 결과 조회
+     * @param empId
+     * @return
+     */
     @GetMapping("/matchResult")
-    public String[] matchResult(@RequestBody String empId){
-        String[] result = voteService.selectMatchResult(voteService.match(empId));
-        return result;
+    public List<String> matchResult(String empId) {
+        return voteService.selectMatchingResultByEmpId(empId);
+    }
+
+    /**
+     * 이상형 투표
+     * @param voteDTO
+     * @return
+     */
+    @PostMapping("voteRegister")
+    public Long voteRegister(@RequestBody VoteDTO voteDTO) {
+        voteService.voteRecord(voteDTO);
+        return voteDTO.getVno();
     }
 }

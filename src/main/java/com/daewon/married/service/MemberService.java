@@ -4,16 +4,19 @@ import com.daewon.married.dto.MemberDTO;
 import com.daewon.married.entity.Member;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 public interface MemberService {
 
     Long register(MemberDTO memberDTO);
 
+    default Member dtoToEntity(MemberDTO memberDTO){
+        Random random = new Random();
+        random.setSeed(System.currentTimeMillis());
 
-    default Member dtoToEntity(MemberDTO memberDTO){//수정할거 수정;
         Member entity = Member.builder()
                 .mno(memberDTO.getMno())
-                .empId("MARRIED" + (Math.random()))
+                .empId("MARRIED_" + random.nextInt(100)) // 수정요망 1
                 .name(memberDTO.getName())
                 .age(memberDTO.getAge())
                 .tel(memberDTO.getTel())

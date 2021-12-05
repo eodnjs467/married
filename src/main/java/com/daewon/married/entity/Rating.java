@@ -1,14 +1,21 @@
 package com.daewon.married.entity;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import lombok.*;
+
+import javax.persistence.*;
 import java.util.Date;
 
-@Embeddable
+@Entity
+@Getter
 public class Rating {
 
-    @Temporal(TemporalType.DATE)
-    Date addDate;
+    @Id @GeneratedValue
+    private Long rno;
+
+    private int year1 = 365;
+
+    private int year2 = 750;
+
+    private int year3 = 1100;
 
 }

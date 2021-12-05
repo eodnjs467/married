@@ -15,6 +15,9 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
+    /*
+    회원 가입
+     */
     @Transactional
     public Long register(MemberDTO memberDTO) {
         Member member = dtoToEntity(memberDTO);
@@ -23,4 +26,5 @@ public class MemberServiceImpl implements MemberService {
 
         return member.getMno();
     }
+
 }
