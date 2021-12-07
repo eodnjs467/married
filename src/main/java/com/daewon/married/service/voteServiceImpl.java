@@ -52,9 +52,4 @@ public class voteServiceImpl implements VoteService {
     }
 
 
-
-
-
-
-
 }

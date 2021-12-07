@@ -27,4 +27,10 @@ public class MemberServiceImpl implements MemberService {
         return member.getMno();
     }
 
+    @Override
+    public String authUpdate(MemberDTO memberDTO) {
+        memberRepository.findById(memberDTO.getMno()); // findByEmpId로 변경 -> empId 로 조회 쿼리 생성
+        return null;
+    }
+
 }

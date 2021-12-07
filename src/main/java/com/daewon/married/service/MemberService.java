@@ -1,6 +1,7 @@
 package com.daewon.married.service;
 
 import com.daewon.married.dto.MemberDTO;
+import com.daewon.married.entity.MarriedMemberRole;
 import com.daewon.married.entity.Member;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,9 @@ import java.util.Random;
 public interface MemberService {
 
     Long register(MemberDTO memberDTO);
+
+    String authUpdate(MemberDTO memberDTO);
+
 
     default Member dtoToEntity(MemberDTO memberDTO){
         Random random = new Random();
@@ -29,6 +33,7 @@ public interface MemberService {
                 .asset(memberDTO.getAsset())
                 .hobbies(memberDTO.getHobbies())
                 .build();
+        entity.addMemberRole(MarriedMemberRole.USER);
         return entity;
     }
 }

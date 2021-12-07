@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @ToString
@@ -25,6 +27,8 @@ public class Member {
 
     private String name;
 
+    private boolean fromSocial;
+
     private String age;
 
     private String tel;
@@ -44,6 +48,15 @@ public class Member {
     private String asset;
 
     private String hobbies;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<MarriedMemberRole> roleSet = new HashSet<>();
+
+    public void addMemberRole(MarriedMemberRole marriedMemberRole) {
+        roleSet.add(marriedMemberRole);
+    }
+
 
     public void changeEffectiveDate(Long year){
         this.effectiveDate = LocalDateTime.now().plusYears(year);
