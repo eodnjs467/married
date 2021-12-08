@@ -12,10 +12,10 @@ public class Rating {
     @Id @GeneratedValue
     private Long rno;
 
-    private int year1 = 365;
+    private int year1;
 
-    private int year2 = 750;
+    private int year2;
 
-    private int year3 = 1100;
+    private int year3;
 
 }

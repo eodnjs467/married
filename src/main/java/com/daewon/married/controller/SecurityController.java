@@ -16,8 +16,9 @@ public class SecurityController {
     }
 
     @GetMapping("/member")
-    public void member() {
+    public String member() {
         log.info("회원 접속");
+        return "redirect:/";
     }
 
     @GetMapping("/admin")

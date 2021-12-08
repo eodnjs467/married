@@ -3,9 +3,9 @@ package com.daewon.married.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @ToString
@@ -15,7 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class Member {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long mno;
 
     @Column(unique = true)
@@ -49,16 +50,28 @@ public class Member {
 
     private String hobbies;
 
+//    @Enumerated(EnumType.STRING)
+//    private MarriedMemberRole memberRole;
+
+
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<MarriedMemberRole> roleSet = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    private Map<String, MarriedMemberRole> roleMap = new HashMap<>();
 
-    public void addMemberRole(MarriedMemberRole marriedMemberRole) {
-        roleSet.add(marriedMemberRole);
+    public void addMemberRole(String empId, MarriedMemberRole marriedMemberRole) {
+        roleMap.put(empId, marriedMemberRole);
     }
 
+//    private Map<String, MarriedMemberRole> roleSet = new HashMap<>();
+//
+//
+//    public void addMemberRole(String empId, MarriedMemberRole marriedMemberRole) {
+//        roleSet.put(empId, marriedMemberRole);
+//    }
 
-    public void changeEffectiveDate(Long year){
+
+    public void changeEffectiveDate(Long year) {
         this.effectiveDate = LocalDateTime.now().plusYears(year);
     }
 
