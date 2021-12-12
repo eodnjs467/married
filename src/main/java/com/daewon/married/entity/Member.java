@@ -50,25 +50,15 @@ public class Member {
 
     private String hobbies;
 
-//    @Enumerated(EnumType.STRING)
-//    private MarriedMemberRole memberRole;
-
-
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    private Map<String, MarriedMemberRole> roleMap = new HashMap<>();
+    private Set<MarriedMemberRole> roleSet = new HashSet<>();
 
-    public void addMemberRole(String empId, MarriedMemberRole marriedMemberRole) {
-        roleMap.put(empId, marriedMemberRole);
+    public void addMemberRole(MarriedMemberRole marriedMemberRole) {
+        System.out.println("print!!!: " + marriedMemberRole);
+        roleSet.add(marriedMemberRole);
     }
-
-//    private Map<String, MarriedMemberRole> roleSet = new HashMap<>();
-//
-//
-//    public void addMemberRole(String empId, MarriedMemberRole marriedMemberRole) {
-//        roleSet.put(empId, marriedMemberRole);
-//    }
 
 
     public void changeEffectiveDate(Long year) {

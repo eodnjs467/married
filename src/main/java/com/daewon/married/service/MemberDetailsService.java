@@ -5,6 +5,7 @@ import com.daewon.married.entity.Member;
 import com.daewon.married.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,9 +39,7 @@ public class MemberDetailsService implements UserDetailsService {
 //        log.info(member);
 
         MemberAuthDTO memberAuthDTO = new MemberAuthDTO(member.getEmail(), member.getPassword(),
-                member.isFromSocial(), Arrays.stream(member.getRoleMap().get("MARRIED_47").values()).map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).collect(Collectors.toSet()));
-//                values().stream()
-//                .map();
+                member.isFromSocial(), member.getRoleSet().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).collect(Collectors.toSet()));
 
         memberAuthDTO.setName(member.getName());
         memberAuthDTO.setFromSocial(member.isFromSocial());

@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
                 .hobbies(memberDTO.getHobbies())
 //                .memberRole(MarriedMemberRole.MEMBER)
                 .build();
-        member.addMemberRole(member.getEmpId(), MarriedMemberRole.MEMBER);
+        member.addMemberRole(MarriedMemberRole.MEMBER);
 //        System.out.println(member.getMemberRole());
 
         memberRepository.save(member);
