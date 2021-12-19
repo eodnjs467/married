@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin();// LoginPage 따로 있을경우 LoginUrl 사용 -> 블로그 정리
         http.csrf().disable(); // csrf 계속 생성 개발자 도구에서 다 보여서 생성안하게 disable
+        http.oauth2Login(); //소셜로그인(1)
         http.logout();  // logout 페이지 있으면 logoutUrl ->
         http.rememberMe().tokenValiditySeconds(60 * 60 * 7).userDetailsService(memberDetailsService);
     }
