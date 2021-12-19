@@ -17,6 +17,7 @@ public class SecurityController {
         log.info("외부 사용자 접속");
     }
 
+    @PreAuthorize("hasRole('MEMBER')")
     @GetMapping("/member")
     public void member() {
         log.info("회원 접속");
