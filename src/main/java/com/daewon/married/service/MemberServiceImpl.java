@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -59,10 +60,42 @@ public class MemberServiceImpl implements MemberService {
         return member.getMno();
     }
 
+    /*
+    회원 권한 수정
+     */
     @Override
     public String authUpdate(MemberDTO memberDTO) {
         memberRepository.findById(memberDTO.getMno()); // findByEmpId로 변경 -> empId 로 조회 쿼리 생성
         return null;
+    }
+
+    /*
+    회원 정보 수정
+     */
+    @Transactional
+    public Long updateMember(MemberDTO memberDTO) {
+        Random random = new Random();
+        random.setSeed(System.currentTimeMillis());
+
+        Optional<Member> result = memberRepository.findById(memberDTO.getMno());
+
+        Member member = Member.builder()
+                .mno(result.get().getMno())
+                .email(result.get().getEmail())
+                .name(memberDTO.getName())
+                .empId("MARRIED_" + random.nextInt(100))
+                .password(memberDTO.getPassword())
+                .fromSocial(result.get().isFromSocial())
+                .tel(memberDTO.getTel())
+                .picture(memberDTO.getPicture())
+                .sal(memberDTO.getSal())
+                .job(memberDTO.getJob())
+                .asset(memberDTO.getAsset())
+                .hobbies(memberDTO.getHobbies())
+                .build();
+        memberRepository.save(member);
+
+        return member.getMno();
     }
 
 }

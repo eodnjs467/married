@@ -15,4 +15,6 @@ public interface MemberService {
 
     String authUpdate(MemberDTO memberDTO);
 
+    Long updateMember(MemberDTO memberDTO);
+
 }
