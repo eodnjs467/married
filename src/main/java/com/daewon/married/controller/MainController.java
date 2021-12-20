@@ -54,9 +54,19 @@ public class MainController {
      * @param voteDTO
      * @return
      */
-    @PostMapping("voteRegister")
+    @PostMapping("/voteRegister")
     public Long voteRegister(@RequestBody VoteDTO voteDTO) {
         voteService.voteRecord(voteDTO);
         return voteDTO.getVno();
+    }
+
+    /**
+     * 회원 정보 수정
+     * @param memberDTO
+     * @return
+     */
+    @PostMapping("/member/modify")
+    public Long memberModify(@RequestBody MemberDTO memberDTO) {
+        return memberService.updateMember(memberDTO);
     }
 }
