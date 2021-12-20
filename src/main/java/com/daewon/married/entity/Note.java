@@ -26,7 +26,7 @@ public class Note {
         this.title = title;
     }
 
-    public void changeContetn(String content) {
+    public void changeContent(String content) {
         this.content = content;
     }
 }
