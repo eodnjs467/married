@@ -82,11 +82,11 @@ public class MemberOAuth2UserDetailsService extends DefaultOAuth2UserService {
     }
 
     private Member registerSocialMember(OAuth2User oAuth2User) {
-        Optional<Member> result = memberRepository.findByEmail(oAuth2User.getAttribute("email"), true);
+        Optional<Member> result = memberRepository.findByEmailAndSocial(oAuth2User.getAttribute("email"), true);
 
         if (result.isPresent()) return result.get();
 
-        Member member = Member.builder()
+        Member member = Member.builder()//MemberAuthDTO 로 바꾸면 좋을거같은디 .. password 변경하구 MemAuthDTo 에서도 password 선언좀
                 .email(oAuth2User.getAttribute("email"))
 //                .name(oAuth2User.getAttribute("name"))
 //                .age(oAuth2User.getAttribute("age"))

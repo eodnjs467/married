@@ -11,7 +11,10 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m where m.email=:email and m.fromSocial=:social")
-    Optional<Member> findByEmail(String email, boolean social);
+    Optional<Member> findByEmailAndSocial(String email, boolean social);
+
+    @Query("select m from Member m where m.email=:email")
+    Member findByEmail(String email);
 
 
 }

@@ -29,7 +29,7 @@ public class MemberDetailsService implements UserDetailsService {
 
         log.info("loadUserByUsername : " + username);
 
-        Optional<Member> result = memberRepository.findByEmail(username, false);
+        Optional<Member> result = memberRepository.findByEmailAndSocial(username, false);
 
         if (result.isPresent()==false) {
             throw new UsernameNotFoundException("Email을 확인해주세요.");

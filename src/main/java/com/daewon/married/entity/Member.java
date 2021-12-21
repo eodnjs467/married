@@ -19,7 +19,7 @@ public class Member {
     @GeneratedValue
     private Long mno;
 
-    @Column(unique = true)
+    @Column(name = "member_email", unique = true)
     private String email;
 
     private String password;
@@ -49,6 +49,7 @@ public class Member {
     private String asset;
 
     private String hobbies;
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
