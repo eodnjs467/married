@@ -1,6 +1,8 @@
 package com.daewon.married.config;
 
 import com.daewon.married.filter.ApiCheckFilter;
+import com.daewon.married.filter.ApiLoginFilter;
+import com.daewon.married.handler.ApiLoginFailHandler;
 import com.daewon.married.handler.MarriedLoginSuccessHandler;
 import com.daewon.married.service.MemberDetailsService;
 import lombok.extern.log4j.Log4j2;
@@ -41,11 +43,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.rememberMe().tokenValiditySeconds(60 * 60 * 7).userDetailsService(memberDetailsService);
 
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(apiLoginFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
     public MarriedLoginSuccessHandler successHandler() {
         return new MarriedLoginSuccessHandler(passwordEncoder());
+    }
+
+    @Bean
+    public ApiLoginFilter apiLoginFilter() throws Exception{
+
+        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
+        apiLoginFilter.setAuthenticationManager(authenticationManager());
+
+        apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
+
+        log.info("/api/login 호출됨");
+        return apiLoginFilter;
     }
 
     @Bean
