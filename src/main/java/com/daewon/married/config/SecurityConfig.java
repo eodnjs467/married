@@ -1,5 +1,6 @@
 package com.daewon.married.config;
 
+import com.daewon.married.handler.ApiCheckFilter;
 import com.daewon.married.handler.MarriedLoginSuccessHandler;
 import com.daewon.married.service.MemberDetailsService;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @Log4j2
@@ -38,11 +40,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.oauth2Login().successHandler(successHandler()); //소셜로그인(1)
         http.logout();  // logout 페이지 있으면 logoutUrl ->
         http.rememberMe().tokenValiditySeconds(60 * 60 * 7).userDetailsService(memberDetailsService);
+
+        http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
     public MarriedLoginSuccessHandler successHandler() {
         return new MarriedLoginSuccessHandler(passwordEncoder());
+    }
+
+    @Bean
+    public ApiCheckFilter apiCheckFilter() {
+        return new ApiCheckFilter("/notes/**/*");
     }
 
 //    @Override
